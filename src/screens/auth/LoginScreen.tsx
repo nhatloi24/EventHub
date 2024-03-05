@@ -1,14 +1,15 @@
 /* eslint-disable prettier/prettier */
-import { View, Text, Button } from 'react-native'
 import React from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Text, View } from 'react-native'
+import { ButtonComponent } from '../../components'
 
 const LoginScreen = () => {
   return (
     <View>
       <Text>LoginScreen</Text>
-      <Button title='Login' 
-      onPress={async () => await AsyncStorage.setItem('assetToken', '123123')} />
+      {/* <Button title='Login' 
+      onPress={async () => await AsyncStorage.setItem('assetToken', '123123')} /> */}
+      <ButtonComponent text='LOGIN' onPress={() => console.log('Login')} icon />
     </View>
   )
 }
