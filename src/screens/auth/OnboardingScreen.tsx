@@ -5,6 +5,8 @@ import Swiper from 'react-native-swiper'
 import { appInfo } from '../../const/appInfos'
 import { globalStyles } from '../../styles/globalStyle'
 import { Colors } from '../../const/Colors'
+import { TextComponent } from '../../components'
+import { fontFamily } from '../../const/fontFamily'
 
 const OnboardingScreen = ({navigation}: any) => {
     const [index, setIndex] = useState(0)
@@ -56,12 +58,18 @@ const OnboardingScreen = ({navigation}: any) => {
         alignItems: 'center'
       }}>
         <TouchableOpacity onPress={()=> navigation.navigate('LoginScreen')}>
-            <Text style={[styles.text]}>Skip</Text>
+        <TextComponent 
+            text='Skip' 
+            color={Colors.gray2} 
+            font={fontFamily.medium} />
         </TouchableOpacity>
         <TouchableOpacity 
             onPress={() => 
             index < 2 ? setIndex(index + 1) : navigation.navigate('LoginScreen')}>
-            <Text style={[styles.text]}>Next</Text>
+            <TextComponent 
+                text='Next' 
+                color={Colors.white} 
+                font={fontFamily.medium} />
         </TouchableOpacity>
       </View>
     </View>
