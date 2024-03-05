@@ -1,17 +1,12 @@
 /* eslint-disable prettier/prettier */
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import { NavigationContainer } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import AuthNavigator from './src/navigators/AuthNavigator';
 import { SplashScreen } from './src/screens';
+import { StatusBar } from 'react-native';
 
 const App = () => {
+  
 
   const [isShowSpalsh, setIsShowSpalsh] = useState(true);
   useEffect(() => {
@@ -22,13 +17,18 @@ const App = () => {
   }, [])
 
   return (
-    isShowSpalsh ? (
-    <SplashScreen />
-    ) : (
-      <NavigationContainer>
-        <AuthNavigator />
-      </NavigationContainer>
-    )
+    <>
+    <StatusBar barStyle={'dark-content'} backgroundColor={'transparent'} translucent />
+    {
+      isShowSpalsh ? (
+        <SplashScreen />
+        ) : (
+          <NavigationContainer>
+            <AuthNavigator />
+          </NavigationContainer>
+        )
+    }
+    </>
   )
 }
 export default App;
