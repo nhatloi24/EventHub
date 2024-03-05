@@ -11,7 +11,7 @@ export const globalStyles = StyleSheet.create({
     text : {
         fontFamily: fontFamily.regular,
         fontSize: 14,
-        color: Colors.white
+        color: Colors.text
     },
     
     button: {
