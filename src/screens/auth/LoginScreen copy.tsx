@@ -6,12 +6,24 @@ import { Colors } from '../../const/Colors'
 import { Image, Switch } from 'react-native'
 import { fontFamily } from '../../const/fontFamily'
 import SocialLogin from './components/SocialLogin'
+import authenticationAPI from '../../apis/authApi'
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation} : any) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
   const [isRemember, setIsRemember] = useState(true)
+
+  const handleLogin = async () => {
+   try {
+    const res = await authenticationAPI.HandleAuthentication('/hello');
+    console.log(res);
+    
+   } catch (error) {
+    console.log(error);
+    
+   }
+  }
 
   return (
     <ContainerComponent isImageBackground isScroll>
@@ -55,20 +67,20 @@ const LoginScreen = () => {
           </RowComponet>
           <ButtonComponent 
             text='Forgot Password'
-            onPress={() => {}}
+            onPress={() => navigation.navigate('ForgotPass')}
             type='text'
             />
         </RowComponet>
       </SectionComponent>
       <SpaceComponent height={16} />
-        <SectionComponent>
-          <ButtonComponent text='SIGN IN' type='primary' />
+        <SectionComponent styles={{alignItems: 'center'}}>
+          <ButtonComponent onPress={handleLogin} text='SIGN IN' type='primary' />
         </SectionComponent>
         <SocialLogin/>
         <SectionComponent>
           <RowComponet justify='center' >
             <TextComponent text="Don't have an account?" />
-            <ButtonComponent type="link" text='Sign up'/>
+            <ButtonComponent type="link" text='Sign up' onPress={() => navigation.navigate('SignUpScreen')} />
           </RowComponet>
         </SectionComponent>
     </ContainerComponent>

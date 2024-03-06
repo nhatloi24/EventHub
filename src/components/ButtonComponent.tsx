@@ -14,36 +14,40 @@ interface Props {
     styles?: StyleProp<ViewStyle>;
     textColor?: string;
     textStyle?: StyleProp<TextStyle>;
+    textFont?: string;
     onPress?: () => void;
     iconFlex?: 'right' | 'left'
 }
 
 const ButtonComponent = (props: Props) => {
-    const {icon, text, type, color, styles, textColor, textStyle, onPress, iconFlex} = props
+    const {icon, text, type, color, styles, textColor, textStyle, onPress, iconFlex, textFont} = props
   return (
     type === 'primary' ?
 
     <TouchableOpacity 
         onPress={onPress}
         style={[globalStyles.button, 
+            globalStyles.shadow,
         {
-        backgroundColor: color ?? Colors.primary
+        backgroundColor: color ?? Colors.primary,
+        marginBottom: 17,
+        width: '80%'
         }, styles]}>
-        {icon && icon}
+        {icon && iconFlex === 'left' && icon}
         <TextComponent 
             text={text} 
             color={textColor ?? Colors.white}
             styles={[textStyle, {
                 marginLeft: icon ? 12 : 0,
-                fontSize: 16
+                fontSize: 16,
+                textAlign: 'center'
             }]}
             flex={icon && iconFlex === 'right' ? 1 : 0}
-            font={fontFamily.medium}
-
+            font={textFont ?? fontFamily.medium}
              />
         {icon && iconFlex ==='right' && icon}
     </TouchableOpacity>
-    : <TouchableOpacity>
+    : <TouchableOpacity onPress={onPress} >
         <TextComponent text={text} color={type === 'link' ? Colors.primary : Colors.text} />
     </TouchableOpacity>
   )
