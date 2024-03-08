@@ -1,17 +1,14 @@
 /* eslint-disable prettier/prettier */
 import { NavigationContainer } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import AuthNavigator from './src/navigators/AuthNavigator';
-import { SplashScreen } from './src/screens';
 import { StatusBar } from 'react-native';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import MainNavigator from './src/navigators/MainNavigator';
+import { Provider } from 'react-redux';
+import AppRouter from './src/navigators/AppRouter';
+import store from './src/redux/store';
+import { SplashScreen } from './src/screens';
 
 const App = () => {
   const [isShowSpalsh, setIsShowSpalsh] = useState(true);
-  const [accessToken, setAccessToken] = useState('');
-
-  const {getItem, setItem} = useAsyncStorage('assetToken');
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -20,30 +17,23 @@ const App = () => {
     return () => clearTimeout(timeout)
   }, []);
 
-  useEffect(() => {
-    checkLogin();
-  }, [])
-
-  const checkLogin = async () => {
-    const token = await getItem()
-    token && setAccessToken(token)
-  }
-
   return (
     <>
-    <StatusBar barStyle={'dark-content'} backgroundColor={'transparent'} translucent />
-    {
-      isShowSpalsh ? (
-        <SplashScreen />
+      <StatusBar 
+        barStyle={'dark-content'} 
+        backgroundColor={'transparent'} 
+        translucent 
+      />
+      <Provider store={store}>
+        {isShowSpalsh ? (
+          <SplashScreen />
         ) : (
           <NavigationContainer>
-            {
-              accessToken ? <MainNavigator/> : <AuthNavigator />
-            }
+            <AppRouter />
           </NavigationContainer>
-        )
-    }
+        )}
+      </Provider>
     </>
-  )
+  );
 }
 export default App;
