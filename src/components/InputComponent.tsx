@@ -15,12 +15,13 @@ interface Props {
   suffix?: ReactNode;
   isPassword?: boolean;
   allowClear?: boolean;
-  type?: KeyboardType
+  type?: KeyboardType;
+  onEnd?: () => void
 }
 
 const InputComponent = (props: Props) => {
 
-  const {value, onChange, affix, suffix, placeholder, isPassword, allowClear, type} = props
+  const {value, onChange, affix, suffix, placeholder, isPassword, allowClear, type, onEnd} = props
   const [isShowPass, setIsShowPass] = useState(isPassword ?? false)
   return (
     <View style={[styles.inputContainer]}>
@@ -32,6 +33,7 @@ const InputComponent = (props: Props) => {
         secureTextEntry={isShowPass}
         placeholderTextColor={'#747688'}
         keyboardType={type ?? 'default'}
+        onEndEditing={onEnd}
       />
       {suffix ?? suffix}
       <TouchableOpacity onPress={isPassword ? () => setIsShowPass(!isShowPass
