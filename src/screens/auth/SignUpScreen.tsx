@@ -69,6 +69,7 @@ const SignUpScreen = ({navigation}: any) => {
       }
     } else {
       setErrorMessage('Please enter complete information!');
+      // Alert.alert('Error message!!!!');
     }
   }
 

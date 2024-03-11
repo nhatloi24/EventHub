@@ -6,8 +6,21 @@ import OnboardingScreen from '../screens/auth/OnboardingScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 
 const AuthNavigator = () => {
-    const Stack = createNativeStackNavigator();
-  return <Stack.Navigator screenOptions={{
+  // const [isExistingUser, setIsExistingUser] = useState(false);
+
+  // useEffect(() => {
+  //   checkUserExistring();
+  // })
+    
+  const Stack = createNativeStackNavigator();
+  // const checkUserExistring = async () => {
+  //   const res = await AsyncStorage.getItem('auth')
+
+  //   res && setIsExistingUser (true);
+  // }
+
+  return (
+  <Stack.Navigator screenOptions={{
     headerShown: false
   }}>
     <Stack.Screen name='OnboardingScreen' component={OnboardingScreen} />
@@ -15,7 +28,7 @@ const AuthNavigator = () => {
     <Stack.Screen name='SignUpScreen' component={SignUpScreen} />
     <Stack.Screen name='ForgotPass' component={ForgotPass} />
     <Stack.Screen name='Verication' component={Verication} />
-  </Stack.Navigator>
+  </Stack.Navigator>)
   
 }
 

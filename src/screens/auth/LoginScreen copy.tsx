@@ -3,26 +3,43 @@ import { Lock1, Sms } from 'iconsax-react-native'
 import React, { useState } from 'react'
 import { ButtonComponent, ContainerComponent, InputComponent, RowComponet, SectionComponent, SpaceComponent, TextComponent } from '../../components'
 import { Colors } from '../../const/Colors'
-import { Image, Switch } from 'react-native'
+import { Alert, Image, Switch } from 'react-native'
 import { fontFamily } from '../../const/fontFamily'
 import SocialLogin from './components/SocialLogin'
 import authenticationAPI from '../../apis/authApi'
+import { Validate } from '../../utils/validate'
+import { useDispatch } from 'react-redux'
+import { addAuth } from '../../redux/reducer/authReducer'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const LoginScreen = ({navigation} : any) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
   const [isRemember, setIsRemember] = useState(true)
+  const dispatch = useDispatch();
 
   const handleLogin = async () => {
-   try {
-    const res = await authenticationAPI.HandleAuthentication('/hello');
-    console.log(res);
-    
-   } catch (error) {
-    console.log(error);
-    
-   }
+
+    const emailValidation = Validate.email(email);
+    if (emailValidation) {
+      try {
+        const res = await authenticationAPI.HandleAuthentication(
+          '/login',
+          { email, password },
+          'post'
+        );
+        dispatch(addAuth(res.data));
+        await AsyncStorage.setItem(
+          'auth',
+          isRemember ? JSON.stringify(res.data) : email);
+
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      Alert.alert('Email not is correct!');
+    }
   }
 
   return (
